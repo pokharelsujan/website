@@ -4,6 +4,3 @@
 
 
 
-## License
-
-MIT
