@@ -2,23 +2,23 @@ vCard - Personal Portfolio
 
 # sidebar
 
-alt = Richard hanrick
-Richard hanrick
-Web developer
+alt = Sujan Pokharel
+Sujan Pokharel
+Mathematician
 
 Show Contacts
 
 Email
-richard@example.com
+pokharelsujan01@gmail.com
 
 Phone
-+1 (213) 352-2795
+(+977) 9862921564
 
 Birthday
-June 23, 1982
+April 25, 1998
 
 Location
-Sacramento, California, USA
+Rumjatar, Okhaldhunga, Nepal
 
 # navbar
 
@@ -32,9 +32,13 @@ Contact
 
 About me
 
-I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and print media. I enjoy turning complex problems into simple, beautiful and intuitive designs.
+I am a Computational Mathematician and Data Analyst with a strong passion for transforming complex data into actionable insights. My expertise lies in statistical programming, mathematical modeling, and developing automated data solutions.
 
-My job is to build your website so that it is functional and user-friendly but at the same time attractive. Moreover, I add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring across your message and identity in the most creative way. I created web design for many famous brand companies.
+I hold both a Bachelor's and a Master's degree in Computational Mathematics from Kathmandu University, where I now also serve as a Graduate Teaching Assistant. Professionally, I have applied my skills in SAS, R, and Python to automate clinical data workflows and build regulatory-standard datasets as a Data Analyst at Numeric Mind.
+
+My research focuses on applying computational models to real-world problems, such as epidemiological forecasting and environmental impact assessment. I am a certified SAS Base Programmer and am proficient in a wide array of data science tools and statistical methods.
+
+I am a proactive, adaptable, and lifelong learner, always eager to take on new challenges and contribute to meaningful projects.
 
 
 ## service
