@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sujan Pokharel — Computational Mathematician & Photographer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0c0c;
+  --bg-card: #151515;
+  --bg-elevated: #1a1a1a;
+  --fg: #e8e4dc;
+  --fg-muted: #8a8278;
+  --accent: #c9a96e;
+  --accent-soft: rgba(201,169,110,0.1);
+  --accent-glow: rgba(201,169,110,0.15);
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(201,169,110,0.3);
+  --serif: 'Cormorant Garamond', serif;
+  --sans: 'Outfit', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --radius: 10px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+::selection{background:var(--accent);color:var(--bg)}
+
+/* ── GRAIN ── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 4rem;height:72px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(12,12,12,0.85);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:var(--serif);font-size:1.5rem;font-weight:500;
+  color:var(--fg);text-decoration:none;letter-spacing:-0.02em;
+}
+.nav-logo span{color:var(--accent);font-style:italic}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  font-size:0.78rem;text-transform:uppercase;letter-spacing:0.14em;
+  text-decoration:none;color:var(--fg-muted);font-weight:400;
+  transition:color 0.3s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;
+  width:0;height:1px;background:var(--accent);
+  transition:width 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+
+.mobile-menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.mobile-menu-btn span{display:block;width:24px;height:1.5px;background:var(--fg);margin:5px 0;transition:0.3s}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:0 4rem;
+  position:relative;overflow:hidden;
+}
+.hero-text{z-index:2}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:0.7rem;
+  text-transform:uppercase;letter-spacing:0.35em;
+  color:var(--accent);margin-bottom:2rem;
+  display:flex;align-items:center;gap:1rem;
+  animation:fadeUp 0.8s 0.2s both;
+}
+.hero-eyebrow::before{
+  content:'';width:32px;height:1px;background:var(--accent);
+}
+.hero h1{
+  font-family:var(--serif);
+  font-size:clamp(3rem,5.5vw,5.5rem);
+  font-weight:400;line-height:1.05;
+  letter-spacing:-0.03em;
+  margin-bottom:1.5rem;
+  animation:fadeUp 0.8s 0.4s both;
+}
+.hero h1 .accent{color:var(--accent);font-style:italic}
+.hero h1 .outline{
+  -webkit-text-stroke:1px var(--fg);
+  color:transparent;
+}
+.hero-desc{
+  font-size:1.05rem;color:var(--fg-muted);
+  max-width:460px;line-height:1.85;
+  animation:fadeUp 0.8s 0.6s both;
+}
+.hero-cta{
+  display:flex;align-items:center;gap:2rem;
+  margin-top:2.5rem;
+  animation:fadeUp 0.8s 0.8s both;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:0.8rem;
+  padding:0.95rem 2.2rem;
+  background:var(--accent);color:var(--bg);
+  font-family:var(--sans);font-size:0.8rem;font-weight:500;
+  text-transform:uppercase;letter-spacing:0.12em;
+  border:none;border-radius:100px;cursor:pointer;
+  text-decoration:none;
+  transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.btn-primary:hover{
+  transform:scale(1.04);
+  box-shadow:0 0 40px var(--accent-glow);
+}
+.btn-outline{
+  font-family:var(--mono);font-size:0.75rem;
+  color:var(--fg-muted);text-decoration:none;
+  letter-spacing:0.05em;
+  border-bottom:1px solid var(--border);
+  padding-bottom:2px;
+  transition:color 0.3s,border-color 0.3s;
+}
+.btn-outline:hover{color:var(--accent);border-color:var(--accent)}
+
+/* Hero photo area */
+.hero-photo{
+  display:flex;justify-content:center;align-items:center;
+  position:relative;animation:fadeUp 1s 0.5s both;
+}
+.photo-frame{
+  width:380px;height:480px;
+  border-radius:var(--radius);
+  overflow:hidden;position:relative;
+  border:1px solid var(--border);
+  background:var(--bg-card);
+}
+.photo-frame-inner{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:1rem;color:var(--fg-muted);
+  background:linear-gradient(145deg,var(--bg-card),var(--bg-elevated));
+}
+.photo-frame-inner svg{opacity:0.3}
+.photo-frame-inner span{
+  font-family:var(--mono);font-size:0.7rem;
+  letter-spacing:0.1em;text-transform:uppercase;
+  opacity:0.5;
+}
+.photo-glow{
+  position:absolute;
+  width:350px;height:350px;
+  border-radius:50%;
+  background:var(--accent-glow);
+  filter:blur(100px);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;z-index:-1;
+  animation:pulse 6s ease-in-out infinite;
+}
+
+/* Floating stats on hero */
+.hero-stats{
+  position:absolute;bottom:4rem;left:4rem;right:4rem;
+  display:flex;gap:4rem;
+  animation:fadeUp 0.8s 1s both;
+}
+.hero-stat{
+  display:flex;flex-direction:column;
+}
+.hero-stat-num{
+  font-family:var(--serif);font-size:2.4rem;
+  color:var(--accent);font-weight:300;line-height:1;
+}
+.hero-stat-label{
+  font-size:0.72rem;text-transform:uppercase;
+  letter-spacing:0.12em;color:var(--fg-muted);margin-top:0.4rem;
+}
+
+/* ── SECTIONS ── */
+section{padding:7rem 4rem}
+.section-label{
+  font-family:var(--mono);font-size:0.65rem;
+  text-transform:uppercase;letter-spacing:0.35em;
+  color:var(--accent);margin-bottom:0.75rem;
+  display:flex;align-items:center;gap:0.8rem;
+}
+.section-label::before{
+  content:'';width:20px;height:1px;background:var(--accent);
+}
+.section-title{
+  font-family:var(--serif);
+  font-size:clamp(2rem,3.5vw,3.2rem);
+  font-weight:400;letter-spacing:-0.02em;
+  margin-bottom:3.5rem;line-height:1.15;
+}
+.section-title em{font-style:italic;color:var(--accent)}
+
+.divider{height:1px;background:var(--border);margin:0 4rem}
+
+/* ── ABOUT ── */
+.about{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:start;
+  background:var(--bg);
+}
+.about-text p{
+  font-size:1rem;color:var(--fg-muted);
+  margin-bottom:1.2rem;line-height:1.85;
+}
+.about-details{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1.5rem;
+}
+.detail-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.8rem;
+  transition:border-color 0.3s,transform 0.3s;
+}
+.detail-card:hover{border-color:var(--border-hover);transform:translateY(-3px)}
+.detail-card-label{
+  font-family:var(--mono);font-size:0.65rem;
+  text-transform:uppercase;letter-spacing:0.2em;
+  color:var(--fg-muted);margin-bottom:0.6rem;
+}
+.detail-card-value{
+  font-family:var(--serif);font-size:1.3rem;font-weight:500;
+}
+
+/* ── EDUCATION ── */
+.education{background:var(--bg-card)}
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.edu-card{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--radius);padding:2.2rem;
+  position:relative;overflow:hidden;
+  transition:border-color 0.3s;
+}
+.edu-card:hover{border-color:var(--border-hover)}
+.edu-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:2px;background:linear-gradient(90deg,var(--accent),transparent);
+}
+.edu-degree{font-family:var(--serif);font-size:1.4rem;font-weight:500;margin-bottom:0.3rem}
+.edu-school{font-size:0.92rem;color:var(--fg-muted);margin-bottom:0.2rem}
+.edu-date{
+  font-family:var(--mono);font-size:0.7rem;
+  color:var(--fg-muted);letter-spacing:0.05em;margin-bottom:1.2rem;
+}
+.edu-badge{
+  display:inline-block;font-size:0.7rem;font-weight:400;
+  padding:0.3rem 0.75rem;border-radius:100px;
+  background:var(--accent-soft);color:var(--accent);
+  margin-right:0.4rem;margin-bottom:0.4rem;
+}
+
+/* ── EXPERIENCE ── */
+.experience{background:var(--bg)}
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.exp-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:2.5rem;
+  position:relative;
+  transition:border-color 0.3s,transform 0.3s;
+}
+.exp-card:hover{border-color:var(--border-hover);transform:translateY(-3px)}
+.exp-card-num{
+  font-family:var(--serif);font-size:3.5rem;
+  color:var(--accent);opacity:0.12;
+  position:absolute;top:1.5rem;right:2rem;line-height:1;
+}
+.exp-role{font-family:var(--serif);font-size:1.4rem;font-weight:500;margin-bottom:0.3rem}
+.exp-company{font-size:0.92rem;font-weight:400}
+.exp-meta{
+  font-family:var(--mono);font-size:0.68rem;
+  color:var(--fg-muted);letter-spacing:0.05em;
+  margin-bottom:1.2rem;
+}
+.exp-bullets{list-style:none}
+.exp-bullets li{
+  font-size:0.88rem;color:var(--fg-muted);
+  padding:0.4rem 0;padding-left:1.3rem;position:relative;
+  line-height:1.6;
+}
+.exp-bullets li::before{
+  content:'›';position:absolute;left:0;
+  color:var(--accent);font-size:1rem;font-weight:600;
+}
+
+/* ── PUBLICATIONS ── */
+.publications{background:var(--bg-card)}
+.pub-list{list-style:none}
+.pub-item{
+  padding:2rem 0;border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:auto 1fr auto;
+  gap:1.5rem;align-items:start;
+  transition:padding-left 0.3s;
+}
+.pub-item:first-child{border-top:1px solid var(--border)}
+.pub-item:hover{padding-left:1rem}
+.pub-badge{
+  font-family:var(--mono);font-size:0.6rem;
+  text-transform:uppercase;letter-spacing:0.1em;
+  color:var(--bg);background:var(--accent);
+  padding:0.25rem 0.65rem;border-radius:3px;
+  white-space:nowrap;margin-top:4px;
+}
+.pub-title{
+  font-family:var(--serif);font-size:1.15rem;
+  font-weight:500;line-height:1.4;
+}
+.pub-venue{font-size:0.8rem;color:var(--fg-muted);margin-top:0.3rem}
+.pub-link{
+  font-family:var(--mono);font-size:0.7rem;
+  color:var(--accent);text-decoration:none;
+  white-space:nowrap;transition:opacity 0.3s;
+}
+.pub-link:hover{opacity:0.7}
+
+/* ── SKILLS ── */
+.skills-section{background:var(--bg)}
+.skills-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;
+}
+.skill-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:2rem;
+  transition:border-color 0.3s,transform 0.3s;
+}
+.skill-card:hover{border-color:var(--border-hover);transform:translateY(-4px)}
+.skill-card-icon{
+  width:36px;height:36px;
+  border-radius:8px;
+  background:var(--accent-soft);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.2rem;
+  color:var(--accent);font-size:1rem;
+}
+.skill-card-title{
+  font-family:var(--serif);font-size:1.1rem;
+  font-weight:500;margin-bottom:1rem;
+  padding-bottom:0.75rem;
+  border-bottom:1px solid var(--border);
+}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.skill-tag{
+  font-family:var(--mono);font-size:0.68rem;
+  padding:0.3rem 0.65rem;border-radius:4px;
+  background:var(--bg-elevated);color:var(--fg-muted);
+  letter-spacing:0.02em;transition:background 0.2s,color 0.2s;
+}
+.skill-tag:hover{background:var(--accent);color:var(--bg)}
+
+/* ── PHOTOGRAPHY ── */
+.photography{background:var(--bg-card);overflow:hidden}
+
+.photo-gallery{
+  columns:3;column-gap:1.2rem;
+}
+.photo-item{
+  break-inside:avoid;
+  margin-bottom:1.2rem;
+  border-radius:var(--radius);
+  overflow:hidden;position:relative;
+  cursor:pointer;
+  border:1px solid var(--border);
+  transition:transform 0.5s cubic-bezier(0.22,1,0.36,1),
+             box-shadow 0.5s,border-color 0.3s;
+}
+.photo-item:hover{
+  transform:translateY(-5px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  border-color:var(--border-hover);
+}
+.photo-placeholder{
+  width:100%;display:block;
+  background:var(--bg-elevated);
+  position:relative;
+}
+.photo-placeholder::after{
+  content:'';position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.photo-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(12,12,12,0.85) 0%,transparent 50%);
+  opacity:0;transition:opacity 0.4s;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;padding:1.5rem;
+}
+.photo-item:hover .photo-overlay{opacity:1}
+.photo-overlay-title{
+  font-family:var(--serif);font-size:1.1rem;font-weight:500;
+}
+.photo-overlay-cat{
+  font-family:var(--mono);font-size:0.65rem;
+  text-transform:uppercase;letter-spacing:0.15em;
+  color:var(--accent);margin-top:0.3rem;
+}
+
+/* Placeholder images with gradients */
+.ph-1{aspect-ratio:3/4;background:linear-gradient(135deg,#1a2332,#2a3f5f,#1a3040)}
+.ph-2{aspect-ratio:4/3;background:linear-gradient(135deg,#2d1f2e,#4a2d4d,#2d1f3e)}
+.ph-3{aspect-ratio:1/1;background:linear-gradient(135deg,#1f2d1a,#3d5a2a,#2a4020)}
+.ph-4{aspect-ratio:3/4;background:linear-gradient(135deg,#2d2a1a,#5a4f2a,#3d3820)}
+.ph-5{aspect-ratio:4/5;background:linear-gradient(135deg,#1a2a2d,#2a505a,#1a3840)}
+.ph-6{aspect-ratio:3/4;background:linear-gradient(135deg,#2d1a1a,#5a2a2a,#401f20)}
+.ph-7{aspect-ratio:16/10;background:linear-gradient(135deg,#1e1a2d,#3a2d5a,#281f40)}
+.ph-8{aspect-ratio:4/3;background:linear-gradient(135deg,#2a2d1a,#505a2a,#383d1a)}
+.ph-9{aspect-ratio:1/1;background:linear-gradient(135deg,#1a2d2a,#2a5a50,#1f4038)}
+
+.photo-note{
+  text-align:center;margin-top:3rem;
+  font-family:var(--mono);font-size:0.75rem;
+  color:var(--fg-muted);letter-spacing:0.05em;
+}
+
+/* ── CONTACT ── */
+.contact{
+  background:var(--bg);text-align:center;
+  padding:8rem 4rem;
+}
+.contact .section-label{justify-content:center}
+.contact .section-label::before{display:none}
+.contact h2{
+  font-family:var(--serif);
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:400;letter-spacing:-0.02em;
+  line-height:1.1;margin-bottom:1.5rem;
+}
+.contact h2 em{font-style:italic;color:var(--accent)}
+.contact-desc{
+  font-size:1rem;color:var(--fg-muted);
+  max-width:480px;margin:0 auto 2.5rem;line-height:1.8;
+}
+.contact-links{
+  display:flex;gap:2rem;justify-content:center;
+  flex-wrap:wrap;margin-top:2rem;
+}
+.contact-link{
+  font-family:var(--mono);font-size:0.75rem;
+  color:var(--fg-muted);text-decoration:none;
+  letter-spacing:0.05em;
+  padding:0.6rem 1.5rem;
+  border:1px solid var(--border);border-radius:100px;
+  transition:all 0.3s;
+}
+.contact-link:hover{
+  border-color:var(--accent);color:var(--accent);
+  background:var(--accent-soft);
+}
+
+/* ── FOOTER ── */
+footer{
+  padding:2rem 4rem;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:0.72rem;color:var(--fg-muted);
+  text-transform:uppercase;letter-spacing:0.1em;
+}
+.footer-links{display:flex;gap:2rem}
+.footer-links a{
+  color:var(--fg-muted);text-decoration:none;
+  transition:color 0.3s;
+}
+.footer-links a:hover{color:var(--accent)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(35px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes pulse{
+  0%,100%{opacity:0.15;transform:translate(-50%,-50%) scale(1)}
+  50%{opacity:0.25;transform:translate(-50%,-50%) scale(1.1)}
+}
+
+.reveal{
+  opacity:0;transform:translateY(40px);
+  transition:opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+             transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  nav{padding:0 1.5rem}
+  .nav-links{display:none}
+  .mobile-menu-btn{display:flex;flex-direction:column}
+  section{padding:5rem 1.5rem}
+  .divider{margin:0 1.5rem}
+  .hero{
+    grid-template-columns:1fr;min-height:auto;
+    padding:8rem 1.5rem 3rem;gap:3rem;
+  }
+  .hero-photo{order:-1;justify-content:flex-start}
+  .photo-frame{width:200px;height:250px}
+  .hero-stats{
+    position:relative;bottom:auto;left:auto;right:auto;
+    margin-top:3rem;gap:2rem;flex-wrap:wrap;
+  }
+  .hero-stat-num{font-size:1.8rem}
+  .about{grid-template-columns:1fr;gap:3rem}
+  .about-details{grid-template-columns:1fr 1fr}
+  .edu-grid{grid-template-columns:1fr}
+  .exp-grid{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .photo-gallery{columns:2}
+  .pub-item{grid-template-columns:1fr;gap:0.5rem}
+  .pub-badge{width:fit-content}
+  .pub-link{justify-self:start}
+  .contact{padding:5rem 1.5rem}
+  footer{flex-direction:column;gap:1rem;text-align:center}
+}
+@media(max-width:480px){
+  .about-details{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr}
+  .photo-gallery{columns:1}
+  .hero-stats{gap:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Sujan<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#photography">Photography</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Computational Mathematician & Photographer</p>
+    <h1>Sujan<br><span class="accent">Pokharel</span></h1>
+    <p class="hero-desc">MSc researcher at Kathmandu University specializing in computational mathematics, mathematical modeling, and data science — with a creative eye behind the lens.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get In Touch <span>→</span></a>
+      <a href="#publications" class="btn-outline">View Research</a>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <div class="photo-frame">
+      <div class="photo-frame-inner">
+        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M3 16l4-4 4 4 4-4 4 4"/></svg>
+        <span>Your Photo</span>
+      </div>
+    </div>
+    <div class="photo-glow"></div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">2</div>
+      <div class="hero-stat-label">Publications</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">5+</div>
+      <div class="hero-stat-label">Conferences</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3.52</div>
+      <div class="hero-stat-label">GPA / 4.00</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">SAS</div>
+      <div class="hero-stat-label">Certified</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <div class="section-label reveal">About Me</div>
+    <h2 class="section-title reveal">Where <em>mathematics</em> meets creative vision</h2>
+    <div class="reveal">
+      <p>I'm a graduate researcher pursuing my MSc in Computational Mathematics at Kathmandu University, Nepal — supported by a University Grant Commission Scholarship. My research focuses on mathematical modeling of disease dynamics, optimization, and computational methods.</p>
+      <p>Beyond the equations, I'm a passionate photographer capturing the landscapes, people, and moments that make Nepal extraordinary. I believe the analytical precision of mathematics and the creative instinct of photography complement each other — both seek patterns, structure, and beauty.</p>
+      <p>Previously, I spent over a year as a Data Analyst at Numeric Mind, working on clinical data pipelines using SAS, R, and Python within CDISC standards for regulatory submissions.</p>
+    </div>
+  </div>
+  <div class="about-details reveal">
+    <div class="detail-card">
+      <div class="detail-card-label">Location</div>
+      <div class="detail-card-value">Bhaktapur, Nepal</div>
+    </div>
+    <div class="detail-card">
+      <div class="detail-card-label">University</div>
+      <div class="detail-card-value">Kathmandu University</div>
+    </div>
+    <div class="detail-card">
+      <div class="detail-card-label">Focus</div>
+      <div class="detail-card-value">Math Modeling</div>
+    </div>
+    <div class="detail-card">
+      <div class="detail-card-label">Certification</div>
+      <div class="detail-card-value">SAS Specialist</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section class="education" id="education">
+  <div class="section-label reveal">Education</div>
+  <h2 class="section-title reveal">Academic <em>journey</em></h2>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-degree">MSc Computational Mathematics</div>
+      <div class="edu-school">Kathmandu University, Dhulikhel</div>
+      <div class="edu-date">March 2024 — Present</div>
+      <div><span class="edu-badge">UGC Scholarship</span></div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-degree">BSc Computational Mathematics</div>
+      <div class="edu-school">Kathmandu University, Dhulikhel</div>
+      <div class="edu-date">August 2018 — May 2023 · GPA 3.52/4.00</div>
+      <div>
+        <span class="edu-badge">Merit Scholarship</span>
+        <span class="edu-badge">Academic Excellence ×3</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-label reveal">Experience</div>
+  <h2 class="section-title reveal">Professional <em>path</em></h2>
+  <div class="exp-grid">
+    <div class="exp-card reveal">
+      <div class="exp-card-num">01</div>
+      <div class="exp-role">Graduate Teaching Assistant</div>
+      <div class="exp-company">Kathmandu University</div>
+      <div class="exp-meta">Dhulikhel, Nepal · Oct 2024 — Present</div>
+      <ul class="exp-bullets">
+        <li>Assisted in teaching undergraduate course MCSC 202</li>
+        <li>Conducted tutorial sessions, graded assignments and exams</li>
+        <li>Developed teaching materials including slides and lab manuals</li>
+        <li>Supervised undergraduate student projects and research</li>
+      </ul>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-card-num">02</div>
+      <div class="exp-role">Data Analyst</div>
+      <div class="exp-company">Numeric Mind</div>
+      <div class="exp-meta">Kathmandu, Nepal · Apr 2023 — Sep 2024</div>
+      <ul class="exp-bullets">
+        <li>Data cleaning & transformation using Excel, SAS, and R</li>
+        <li>Built Python scripts (pandas/NumPy) to automate validation and reporting</li>
+        <li>Developed SDTM and ADaM datasets adhering to CDISC standards</li>
+        <li>Produced TLFs aligned with the Statistical Analysis Plan</li>
+        <li>Automated clinical workflows using SAS macros</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PUBLICATIONS -->
+<section class="publications" id="publications">
+  <div class="section-label reveal">Research & Publications</div>
+  <h2 class="section-title reveal">Academic <em>contributions</em></h2>
+  <ul class="pub-list">
+    <li class="pub-item reveal">
+      <span class="pub-badge">Journal</span>
+      <div>
+        <div class="pub-title">Modeling COVID-19 Dynamics in Nepal: SEIQR Compartmental Model with Mortality and Quarantine</div>
+        <div class="pub-venue">Published — Peer-reviewed</div>
+      </div>
+      <a href="#" class="pub-link">DOI ↗</a>
+    </li>
+    <li class="pub-item reveal">
+      <span class="pub-badge">Journal</span>
+      <div>
+        <div class="pub-title">On Optimizing Travel Routes in Kathmandu Valley, Nepal Using Genetic Algorithms</div>
+        <div class="pub-venue">Published — Peer-reviewed</div>
+      </div>
+      <a href="#" class="pub-link">DOI ↗</a>
+    </li>
+    <li class="pub-item reveal">
+      <span class="pub-badge">Conference</span>
+      <div>
+        <div class="pub-title">Exploring COVID-19 Transmission Dynamics Through Sensitivity and Bifurcation Analysis</div>
+        <div class="pub-venue">ICAN-OPT Nepal 2025 · May 2025</div>
+      </div>
+      <span></span>
+    </li>
+    <li class="pub-item reveal">
+      <span class="pub-badge">Conference</span>
+      <div>
+        <div class="pub-title">Modeling COVID-19 Dynamics in Nepal: SEIQR Compartmental Model with Quarantine</div>
+        <div class="pub-venue">NCDC-2024 · October 2024</div>
+      </div>
+      <span></span>
+    </li>
+    <li class="pub-item reveal">
+      <span class="pub-badge">Conference</span>
+      <div>
+        <div class="pub-title">Data Security for Errorless Communication System Using Combined Encryption and Encoding</div>
+        <div class="pub-venue">ICT-CEEL 2023 · October 2023</div>
+      </div>
+      <span></span>
+    </li>
+    <li class="pub-item reveal">
+      <span class="pub-badge">Poster</span>
+      <div>
+        <div class="pub-title">Modeling COVID-19 Transmission in Nepal Using The SEIQR Framework</div>
+        <div class="pub-venue">ICMA 2024 · May 2025</div>
+      </div>
+      <span></span>
+    </li>
+  </ul>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-label reveal">Skills</div>
+  <h2 class="section-title reveal">Technical <em>toolkit</em></h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">λ</div>
+      <div class="skill-card-title">Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag">R</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">SAS</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">C</span>
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">MATLAB</span>
+        <span class="skill-tag">Power BI</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">Σ</div>
+      <div class="skill-card-title">Statistics</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Time Series</span>
+        <span class="skill-tag">PCA</span>
+        <span class="skill-tag">Clustering</span>
+        <span class="skill-tag">Hypothesis Testing</span>
+        <span class="skill-tag">Statistical Inference</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">◈</div>
+      <div class="skill-card-title">Software</div>
+      <div class="skill-tags">
+        <span class="skill-tag">OpenFOAM</span>
+        <span class="skill-tag">Blender</span>
+        <span class="skill-tag">After Effects</span>
+        <span class="skill-tag">Photoshop</span>
+        <span class="skill-tag">SAS Macros</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">◎</div>
+      <div class="skill-card-title">Strengths</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Self-starter</span>
+        <span class="skill-tag">Teamwork</span>
+        <span class="skill-tag">Adaptable</span>
+        <span class="skill-tag">Multi-tasking</span>
+        <span class="skill-tag">Independent</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PHOTOGRAPHY -->
+<section class="photography" id="photography">
+  <div class="section-label reveal">Photography</div>
+  <h2 class="section-title reveal">Through the <em>lens</em></h2>
+  <div class="photo-gallery">
+    <div class="photo-item reveal">
+      <div class="photo-placeholder ph-1"></div>
+      <div class="photo-overlay">
+        <div class="photo-overlay-title">Mountain Dawn</div>
+        <div class="photo-overlay-cat">Landscape</div>
+      </div>
+    </div>
+    <div class="photo-item reveal">
+      <div class="photo-placeholder ph-2"></div>
+      <div class="photo-overlay">
+        <div class="photo-overlay-title">Temple Light</div>
+        <div class="photo-overlay-cat">Architecture</div>
+      </div>
+    </div>
+    <div class="photo-item reveal">
+      <div class="photo-placeholder ph-3"></div>
+      <div class="photo-overlay">
+        <div class="photo-overlay-title">Morning Rituals</div>
+        <div class="photo-overlay-cat">Street</div>
+      </div>
+    </div>
+    <div class="photo-item reveal">
+      <div class="photo-placeholder ph-4"></div>
+      <div class="photo-overlay">
+        <div class="photo-overlay-title">Valley Mist</div>
+        <div class="photo-overlay-cat">Landscape</div>
+      </div>
+    </div>
+    <div class="photo-item reveal">
+      <div class="photo-placeholder ph-5"></div>
+      <div class="photo-overlay">
+        <div class="photo-overlay-title">Festival Colors</div>
+        <div class="photo-overlay-cat">Culture</div>
+      </div>
+    </div>
+    <div class="photo-item reveal">
+      <div class="photo-placeholder ph-6"></div>
+      <div class="photo-overlay">
+        <div class="photo-overlay-title">Golden Hour</div>
+        <div class="photo-overlay-cat">Portrait</div>
+      </div>
+    </div>
+    <div class="photo-item reveal">
+      <div class="photo-placeholder ph-7"></div>
+      <div class="photo-overlay">
+        <div class="photo-overlay-title">Urban Geometry</div>
+        <div class="photo-overlay-cat">Architecture</div>
+      </div>
+    </div>
+    <div class="photo-item reveal">
+      <div class="photo-placeholder ph-8"></div>
+      <div class="photo-overlay">
+        <div class="photo-overlay-title">Trail Ahead</div>
+        <div class="photo-overlay-cat">Adventure</div>
+      </div>
+    </div>
+    <div class="photo-item reveal">
+      <div class="photo-placeholder ph-9"></div>
+      <div class="photo-overlay">
+        <div class="photo-overlay-title">Still Water</div>
+        <div class="photo-overlay-cat">Nature</div>
+      </div>
+    </div>
+  </div>
+  <p class="photo-note reveal">↑ Replace placeholders with your photography — each card supports any aspect ratio</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-label reveal">Get In Touch</div>
+  <h2 class="reveal">Let's <em>connect</em></h2>
+  <p class="contact-desc reveal">Whether it's a research collaboration, a photography project, or just a conversation about mathematics — I'd love to hear from you.</p>
+  <a href="mailto:pokharelsujan01@gmail.com" class="btn-primary reveal">Say Hello <span>→</span></a>
+  <div class="contact-links reveal">
+    <a href="mailto:pokharelsujan01@gmail.com" class="contact-link">pokharelsujan01@gmail.com</a>
+    <a href="tel:+9779862921564" class="contact-link">+977 986-292-1564</a>
+    <a href="https://linkedin.com/in/pokharelsujan" class="contact-link" target="_blank">LinkedIn ↗</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Sujan Pokharel. All rights reserved.</span>
+  <div class="footer-links">
+    <a href="https://linkedin.com/in/pokharelsujan" target="_blank">LinkedIn</a>
+    <a href="mailto:pokharelsujan01@gmail.com">Email</a>
+    <a href="#">GitHub</a>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Parallax on hero glow
+window.addEventListener('scroll', () => {
+  const s = window.scrollY;
+  const glow = document.querySelector('.photo-glow');
+  if (glow) glow.style.transform = `translate(-50%, calc(-50% + ${s * 0.2}px))`;
+});
+
+// Mobile nav
+const style = document.createElement('style');
+style.textContent = `.nav-links.show{display:flex!important;position:fixed;top:72px;left:0;right:0;background:rgba(12,12,12,0.97);flex-direction:column;padding:2rem 1.5rem;gap:1.5rem;border-bottom:1px solid var(--border);backdrop-filter:blur(24px)}`;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>
