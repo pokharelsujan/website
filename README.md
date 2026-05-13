@@ -1,6 +1,0 @@
-# Sujan Pokharel - Personal portfolio
-
-
-
-
-
